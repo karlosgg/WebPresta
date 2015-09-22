@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CatalogoCuentasEditDlg" widgetVar="CatalogoCuentasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCatalogoCuentasTitle}">
+            <h:form id="CatalogoCuentasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{catalogoCuentasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCatalogoCuentasLabel_idcuenta}" for="idcuenta" />
+                        <p:inputText id="idcuenta" value="#{catalogoCuentasController.selected.idcuenta}" title="#{bundle.EditCatalogoCuentasTitle_idcuenta}" required="true" requiredMessage="#{bundle.EditCatalogoCuentasRequiredMessage_idcuenta}"/>
+                        <p:outputLabel value="#{bundle.EditCatalogoCuentasLabel_tipocuenta}" for="tipocuenta" />
+                        <p:inputText id="tipocuenta" value="#{catalogoCuentasController.selected.tipocuenta}" title="#{bundle.EditCatalogoCuentasTitle_tipocuenta}" />
+                        <p:outputLabel value="#{bundle.EditCatalogoCuentasLabel_idcuentapadre}" for="idcuentapadre" />
+                        <p:inputText id="idcuentapadre" value="#{catalogoCuentasController.selected.idcuentapadre}" title="#{bundle.EditCatalogoCuentasTitle_idcuentapadre}" />
+                        <p:outputLabel value="#{bundle.EditCatalogoCuentasLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{catalogoCuentasController.selected.nombre}" title="#{bundle.EditCatalogoCuentasTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.EditCatalogoCuentasLabel_cargo}" for="cargo" />
+                        <p:inputText id="cargo" value="#{catalogoCuentasController.selected.cargo}" title="#{bundle.EditCatalogoCuentasTitle_cargo}" />
+                        <p:outputLabel value="#{bundle.EditCatalogoCuentasLabel_abono}" for="abono" />
+                        <p:inputText id="abono" value="#{catalogoCuentasController.selected.abono}" title="#{bundle.EditCatalogoCuentasTitle_abono}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{catalogoCuentasController.update}" value="#{bundle.Save}" update="display,:CatalogoCuentasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CatalogoCuentasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CatalogoCuentasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

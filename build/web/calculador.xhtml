@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">CALCULADOR
+        </ui:define>
+
+        <ui:define name="body">
+    
+ 
+
+
+        <h:outputLabel value=""/>
+        <h:outputText />
+
+
+
+
+        <h:form class="frmAcceso">
+            <p:tabMenu activeIndex="#{param.i}">
+                <p:menuitem value="Calculadora de Cuotas" icon="ui-icon-wrench" url="acceso.jsf" >
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Clientes"  icon="ui-icon-document"  url="buscarClientes.jsf">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+
+                <p:menuitem value="Nuevo Prestamo"  icon="ui-icon-document" url="nuevoPrestamo.jsf">
+                    <f:param name="i" value="4" />            
+                </p:menuitem>
+
+
+                <p:menuitem value="Pagos"  icon="ui-icon-document" url="pagos.jsf">
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+
+
+
+                <p:menuitem value="Contabilidad"  icon="ui-icon-document" url="catalogoDeCuentas.jsf">
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+
+
+                <p:menuitem value="Registrar usuarios"  icon="ui-icon-document" url="registrarUsuarios.jsf">
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+
+            </p:tabMenu>
+        </h:form>
+
+
+
+
+
+
+        <section class="contenedorAcceso">
+
+
+
+            <p:tabView id="tView" activeIndex="0">
+                <p:tab id="tabFrmCliente" title="Calculo de amortizacion">
+                    <h:form>
+
+                        <h:panelGrid columns="2"> 
+                            <h:outputText value="Valor articulo: " />
+                            <h:inputText id="logValue" value="#{calculadora.monto}" />
+
+                            <h:outputText value="Prima: " />
+                            <h:inputText id="dateValue" value="#{calculadora.prima}" />
+
+                            <h:outputText value="Monto a prestar: " />
+                            <h:inputText id="dateh" value="#{calculadora.montoPrestar}" readonly="true"/>
+
+                            <h:outputText value="Mensualidades: " />
+                            <h:inputText id="taxValue" value="#{calculadora.mensualidad}" />
+
+                            <h:outputText value="Tasa de interes: " />
+                            <h:inputText id="phoneValue" value="#{calculadora.tasa}" />
+
+                            <h:outputText value="Recargo por servicio: " />
+                            <h:inputText id="ssnValue" value="#{calculadora.recargoServicio}" />
+
+                            <h:outputText value="Cuota mensual: " />
+                            <h:inputText id="passValuese" value="#{calculadora.cuotaMensual}" readonly="true"/>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2">
+                            <h:commandButton value="Calcular" actionListener="#{calculadora.doCalcularMensualidad()}" ></h:commandButton>
+                        </h:panelGrid>
+
+
+
+                    </h:form>
+                </p:tab>
+            </p:tabView>   
+
+
+            <p:panel header="" closable="false" toggleable="false">
+                <h:panelGrid>
+                    <h:form id="frmDetalle">
+
+                        <p:dataTable>
+                            <p:column headerText="Capital">
+                                <p:outputLabel value="#{calculadora.montoPrestar}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Pago">
+                                <p:outputLabel value="#{calculadora.cuotaMensual}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Interes">
+                                <p:outputLabel value="#{u.loggin}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Servicio" >
+                                <p:outputLabel value="#{calculadora.recargoServicio}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Capital">
+                                <p:outputLabel value="#{u.direccion}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Saldo">
+                                <p:outputLabel value="#{u.telefono}"></p:outputLabel>
+                            </p:column>
+
+                      <!--      <p:ajax update="frmDetalle" event="keyup" listener="${calculadora.doCalcularMensualidad()}"></p:ajax> -->
+
+                        </p:dataTable>
+                        <h:messages showDetail="true"></h:messages>
+                    </h:form>
+
+
+
+                </h:panelGrid>
+            </p:panel>        </section>
+    </ui:define>
+    </ui:composition>
+</html>
+

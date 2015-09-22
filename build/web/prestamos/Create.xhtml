@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrestamosCreateDlg" widgetVar="PrestamosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePrestamosTitle}">
+            <h:form id="PrestamosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prestamosController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_numprestamo}" for="numprestamo" />
+                        <p:inputText id="numprestamo" value="#{prestamosController.selected.numprestamo}" title="#{bundle.CreatePrestamosTitle_numprestamo}" required="true" requiredMessage="#{bundle.CreatePrestamosRequiredMessage_numprestamo}"/>
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_monto}" for="monto" />
+                        <p:inputText id="monto" value="#{prestamosController.selected.monto}" title="#{bundle.CreatePrestamosTitle_monto}" />
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_cuota}" for="cuota" />
+                        <p:inputText id="cuota" value="#{prestamosController.selected.cuota}" title="#{bundle.CreatePrestamosTitle_cuota}" />
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_articulo}" for="articulo" />
+                        <p:inputText id="articulo" value="#{prestamosController.selected.articulo}" title="#{bundle.CreatePrestamosTitle_articulo}" />
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_interes}" for="interes" />
+                        <p:inputText id="interes" value="#{prestamosController.selected.interes}" title="#{bundle.CreatePrestamosTitle_interes}" />
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_interespormora}" for="interespormora" />
+                        <p:inputText id="interespormora" value="#{prestamosController.selected.interespormora}" title="#{bundle.CreatePrestamosTitle_interespormora}" />
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_saldo}" for="saldo" />
+                        <p:inputText id="saldo" value="#{prestamosController.selected.saldo}" title="#{bundle.CreatePrestamosTitle_saldo}" />
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_fechapago}" for="fechapago" />
+                        <p:calendar id="fechapago" pattern="MM/dd/yyyy" value="#{prestamosController.selected.fechapago}" title="#{bundle.EditPrestamosTitle_fechapago}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_prima}" for="prima" />
+                        <p:inputText id="prima" value="#{prestamosController.selected.prima}" title="#{bundle.CreatePrestamosTitle_prima}" />
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_login}" for="login" />
+                        <p:selectOneMenu id="login" value="#{prestamosController.selected.login}" required="true" requiredMessage="#{bundle.EditPrestamosRequiredMessage_login}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="loginItem"
+                                           itemValue="#{loginItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePrestamosLabel_dui}" for="dui" />
+                        <p:selectOneMenu id="dui" value="#{prestamosController.selected.dui}" required="true" requiredMessage="#{bundle.EditPrestamosRequiredMessage_dui}">
+                            <f:selectItems value="#{clientesController.itemsAvailableSelectOne}"
+                                           var="duiItem"
+                                           itemValue="#{duiItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prestamosController.create}" value="#{bundle.Save}" update="display,:PrestamosListForm:datalist,:growl" oncomplete="handleSubmit(args,'PrestamosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PrestamosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+
+      >
+    <h:head>
+        <title>Sistema de Creditos</title>
+        <!--
+        <link rel="stylesheet" href="/JSFLoginCreditos/public/css3/cssFormulario.css"/>
+    -->
+    <link rel="stylesheet" href="/Prestamos-war/paginas/css3/Index.css"/>
+        
+        </h:head>
+        
+    <h:body>
+
+
+        <section class="contenedor">
+
+            <!--aqui inica el primer login   -->
+
+
+
+            <h:form class="frmLogin"> 
+                <h2>Acceso de Usuario</h2>
+                <p>Rellene el siguiente formulario para ingresar al sistema de gestion de creditos</p>
+                <p><h:inputText pt:placeholder="Usuario"  /></p>
+                <p><h:inputSecret pt:placeholder="Contraseña"  /></p>
+                <h:messages infoStyle="color: blue;list-style:none;" errorStyle="color:red;list-style:none;"/>
+                <section class="seccionBotones">
+                    <a href="#">Regístrate</a>
+                    <h:commandButton value="Ingresar"  action="acceso" />
+                     <!--acceso :es el menu principal   -->
+                </section>
+            </h:form>
+
+        </section>
+
+
+        <br />
+        <h:link outcome="welcomePrimefaces" value="" />
+    </h:body>
+</html>
+

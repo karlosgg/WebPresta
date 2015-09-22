@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CatalogoCuentasViewDlg" widgetVar="CatalogoCuentasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCatalogoCuentasTitle}">
+            <h:form id="CatalogoCuentasViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{catalogoCuentasController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCatalogoCuentasLabel_idcuenta}"/>
+                        <h:outputText value="#{catalogoCuentasController.selected.idcuenta}" title="#{bundle.ViewCatalogoCuentasTitle_idcuenta}"/>
+                        <h:outputText value="#{bundle.ViewCatalogoCuentasLabel_tipocuenta}"/>
+                        <h:outputText value="#{catalogoCuentasController.selected.tipocuenta}" title="#{bundle.ViewCatalogoCuentasTitle_tipocuenta}"/>
+                        <h:outputText value="#{bundle.ViewCatalogoCuentasLabel_idcuentapadre}"/>
+                        <h:outputText value="#{catalogoCuentasController.selected.idcuentapadre}" title="#{bundle.ViewCatalogoCuentasTitle_idcuentapadre}"/>
+                        <h:outputText value="#{bundle.ViewCatalogoCuentasLabel_nombre}"/>
+                        <h:outputText value="#{catalogoCuentasController.selected.nombre}" title="#{bundle.ViewCatalogoCuentasTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewCatalogoCuentasLabel_cargo}"/>
+                        <h:outputText value="#{catalogoCuentasController.selected.cargo}" title="#{bundle.ViewCatalogoCuentasTitle_cargo}"/>
+                        <h:outputText value="#{bundle.ViewCatalogoCuentasLabel_abono}"/>
+                        <h:outputText value="#{catalogoCuentasController.selected.abono}" title="#{bundle.ViewCatalogoCuentasTitle_abono}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CatalogoCuentasViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
