@@ -12,12 +12,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpServletRequest;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "usuarioController")
 @SessionScoped
@@ -27,7 +30,58 @@ public class UsuarioController implements Serializable {
     private Models.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
-
+private String username;
+private HttpServletRequest httpServletRequest;
+    private String password;
+    FacesContext contexto;
+   
+ 
+    public String getUsername() {
+        return username;
+    }
+ 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+ 
+    public String getPassword() {
+        return password;
+    }
+ 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    /// MIS METODOS
+    
+    public void LoginFunional(){
+        String result = getFacade().ObtenerUsuario(username, password);
+        contexto = FacesContext.getCurrentInstance();
+        contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Retorno",result));
+  
+    }
+    
+    public String LoginVerify(){
+        
+        String ret="";
+        Boolean result = getFacade().existeUsuario(username, password);
+         contexto = FacesContext.getCurrentInstance();
+        if(result == true){
+            httpServletRequest=(HttpServletRequest)contexto.getExternalContext().getRequest();
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Bienvenido", username));
+            ret= "prestamos/Calcular.xhtml?faces-redirect=true";
+            httpServletRequest.getSession().setAttribute("sessionUsuario", username);
+            //RequestContext.getCurrentInstance().update("growl");
+            RequestContext.getCurrentInstance().update(ret);
+        }
+        else 
+        {
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Aviso","Error de credenciales"));
+        }
+        return ret;
+    }
+    
+    
+    //FIN DE MIS METODOS
     public UsuarioController() {
     }
 

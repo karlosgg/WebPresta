@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+       <ui:define name="title">
+            <h:outputText value="Nuevos Prestamos"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            
+            <h:messages infoStyle="color: blue;list-style:none;"/>
+
+            
+            <p:growl id="growl1" life="3000" />
+            <p:tabView id="tView" activeIndex="0" style="width: 330px;min-height: 320px;float: left">
+                <p:tab id="tabFrmCliente" title="Calculo de amortizacion">
+                    <h:form>
+
+                        <h:panelGrid columns="2" cellpadding="5" class="ui-grid"> 
+                            
+                            <h:outputLabel for="Varticulo" value="Valor articulo: " />
+                            <p:spinner id="Varticulo" value="#{calculadora.monto}" prefix="$" stepFactor="0.50" min="0" />
+                            
+                            <h:outputLabel for="Vprima" value="Prima: "  />
+                            <p:spinner id="Vprima" value="#{calculadora.prima}" prefix="$" stepFactor="0.50" min="0"/>
+
+                            <h:outputLabel for="Mprestar" value="Monto a prestar: " />
+                            <p:spinner id="Mprestar" value="#{calculadora.montoPrestar}" prefix="$" stepFactor="0.50" min="0" readonly="true"/>
+
+                            <h:outputLabel for="Nmensualidades" value="Mensualidades: " />
+                            <p:spinner id="Nmensualidades" value="#{calculadora.mensualidad}" min="0"/>
+                            
+                            <h:outputLabel for="Vtasa" value="Tasa de interes: " />
+                            <p:spinner id="Vtasa" value="#{calculadora.tasa}" prefix="%" stepFactor="0.50" min="0"/>
+                            
+                            <h:outputLabel for="Vcargo" value="Recargo por servicio: "  />
+                            <p:spinner id="Vcargo" value="#{calculadora.recargoServicio}" prefix="$" stepFactor="0.50" min="0"/>
+                            
+                            <h:outputLabel for="Vcuota" value="Cuota mensual: "  />
+                            <p:spinner id="Vcuota" value="#{calculadora.cuotaMensual}" prefix="$" stepFactor="0.50" min="0" readonly="true"/>
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2">
+                            <!--<p:commandButton update="@frmDetalle" value="Calcular" actionListener="#{calculadora.doCalcularMensualidad()}" />-->
+                            <h:commandButton value="Calcular" actionListener="#{calculadora.doCalcularMensualidad()}" />
+                              
+                            
+                            </h:panelGrid>
+
+
+
+                    </h:form>
+             </p:tab>
+            </p:tabView> 
+            
+            
+            <p:panel header="" closable="false" toggleable="false" style="width: 650px;min-height: 320px;float: right;">
+                <h:panelGrid>
+                    <h:form id="frmDetalle" >
+
+                        <p:dataTable >
+                            <p:column headerText="Capital">
+                                <p:outputLabel value="#{calculadora.montoPrestar}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Pago">
+                                <p:outputLabel value="#{calculadora.cuotaMensual}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Interes">
+                                <p:outputLabel value="#{u.loggin}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Servicio" >
+                                <p:outputLabel value="#{calculadora.recargoServicio}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Capital">
+                                <p:outputLabel value="#{u.direccion}"></p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Saldo">
+                                <p:outputLabel value="#{u.telefono}"></p:outputLabel>
+                            </p:column> 
+                            
+                         
+                        </p:dataTable>
+                        <!--<h:messages showDetail="true"></h:messages>-->
+                    </h:form>
+
+                </h:panelGrid>
+            </p:panel> 
+      </ui:define>
+    </ui:composition>
+
+</html>

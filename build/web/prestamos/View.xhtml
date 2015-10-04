@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrestamosViewDlg" widgetVar="PrestamosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPrestamosTitle}">
+            <h:form id="PrestamosViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prestamosController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_numprestamo}"/>
+                        <h:outputText value="#{prestamosController.selected.numprestamo}" title="#{bundle.ViewPrestamosTitle_numprestamo}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_monto}"/>
+                        <h:outputText value="#{prestamosController.selected.monto}" title="#{bundle.ViewPrestamosTitle_monto}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_cuota}"/>
+                        <h:outputText value="#{prestamosController.selected.cuota}" title="#{bundle.ViewPrestamosTitle_cuota}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_articulo}"/>
+                        <h:outputText value="#{prestamosController.selected.articulo}" title="#{bundle.ViewPrestamosTitle_articulo}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_interes}"/>
+                        <h:outputText value="#{prestamosController.selected.interes}" title="#{bundle.ViewPrestamosTitle_interes}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_interespormora}"/>
+                        <h:outputText value="#{prestamosController.selected.interespormora}" title="#{bundle.ViewPrestamosTitle_interespormora}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_saldo}"/>
+                        <h:outputText value="#{prestamosController.selected.saldo}" title="#{bundle.ViewPrestamosTitle_saldo}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_fechapago}"/>
+                        <h:outputText value="#{prestamosController.selected.fechapago}" title="#{bundle.ViewPrestamosTitle_fechapago}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_prima}"/>
+                        <h:outputText value="#{prestamosController.selected.prima}" title="#{bundle.ViewPrestamosTitle_prima}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_login}"/>
+                        <h:outputText value="#{prestamosController.selected.login}" title="#{bundle.ViewPrestamosTitle_login}"/>
+                        <h:outputText value="#{bundle.ViewPrestamosLabel_dui}"/>
+                        <h:outputText value="#{prestamosController.selected.dui}" title="#{bundle.ViewPrestamosTitle_dui}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PrestamosViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

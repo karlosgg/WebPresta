@@ -5,15 +5,17 @@
  */
 package Views;
 
-import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
- * @author fer
+ * @author admin
  */
 @ManagedBean
 @ViewScoped
@@ -94,19 +96,31 @@ public class Calculadora implements Serializable {
 
     private void calcularMensualidad() {
         double o1, o2, a1, a2, ay;
+        try{
+            tasa=tasa/100;
+            o1 = 1+tasa;
+            a1 = (Math.pow(o1, mensualidad))*tasa;
+
+            o2 = 1+tasa;
+            a2 = (Math.pow(o2, mensualidad))-1;
+
+           montoPrestar = monto - prima;
+
+            ay = recargoServicio + (montoPrestar * (a1 / a2));
+
+            DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+            simbolos.setDecimalSeparator('.');
+            DecimalFormat formateador = new DecimalFormat("####.##",simbolos);
+            ay = Double.parseDouble(formateador.format(ay));
+            cuotaMensual = ay;
+        }
+        catch(Exception e){
         
-        o1 = 1+tasa;
-        a1 = (Math.pow(o1, mensualidad))*tasa;
-        
-        o2 = 1+tasa;
-        a2 = (Math.pow(o2, mensualidad))-1;
-       
-       montoPrestar = monto - (prima - 10);
-        
-        ay = recargoServicio + (montoPrestar * (a1 / a2));
-        DecimalFormat formato = new DecimalFormat("#####.##");
-        cuotaMensual = Double.parseDouble(formato.format(ay));
-        
+        FacesContext contexto = FacesContext.getCurrentInstance();
+  
+        contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error en los datos", "Revise los valores ingresados"));
+            
+        }
     }
     
     
@@ -115,7 +129,7 @@ public class Calculadora implements Serializable {
     }
     
     private void calcularMontoPrestar() {
-        montoPrestar = monto - (prima -10);
+        montoPrestar = monto - prima;
         
        
         

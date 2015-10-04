@@ -9,7 +9,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 dist/
-build/
+
 # Windows Installer files
 *.cab
 *.msi
@@ -43,3 +43,4 @@ build/
 Network Trash Folder
 Temporary Items
 .apdisk
+persistence.xml

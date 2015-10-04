@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PagosEditDlg" widgetVar="PagosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPagosTitle}">
+            <h:form id="PagosEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pagosController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPagosLabel_pagosPK_numpago}" for="pagosPK_numpago" />
+                        <p:inputText id="pagosPK_numpago" value="#{pagosController.selected.pagosPK.numpago}" title="#{bundle.EditPagosTitle_pagosPK_numpago}" required="true" requiredMessage="#{bundle.EditPagosRequiredMessage_pagosPK_numpago}"/>
+                        <p:outputLabel value="#{bundle.EditPagosLabel_capitalabonado}" for="capitalabonado" />
+                        <p:inputText id="capitalabonado" value="#{pagosController.selected.capitalabonado}" title="#{bundle.EditPagosTitle_capitalabonado}" />
+                        <p:outputLabel value="#{bundle.EditPagosLabel_capitalrestante}" for="capitalrestante" />
+                        <p:inputText id="capitalrestante" value="#{pagosController.selected.capitalrestante}" title="#{bundle.EditPagosTitle_capitalrestante}" />
+                        <p:outputLabel value="#{bundle.EditPagosLabel_saldoanterior}" for="saldoanterior" />
+                        <p:inputText id="saldoanterior" value="#{pagosController.selected.saldoanterior}" title="#{bundle.EditPagosTitle_saldoanterior}" />
+                        <p:outputLabel value="#{bundle.EditPagosLabel_pagoporservicio}" for="pagoporservicio" />
+                        <p:inputText id="pagoporservicio" value="#{pagosController.selected.pagoporservicio}" title="#{bundle.EditPagosTitle_pagoporservicio}" />
+                        <p:outputLabel value="#{bundle.EditPagosLabel_interes}" for="interes" />
+                        <p:inputText id="interes" value="#{pagosController.selected.interes}" title="#{bundle.EditPagosTitle_interes}" />
+                        <p:outputLabel value="#{bundle.EditPagosLabel_interespormora}" for="interespormora" />
+                        <p:inputText id="interespormora" value="#{pagosController.selected.interespormora}" title="#{bundle.EditPagosTitle_interespormora}" />
+                        <p:outputLabel value="#{bundle.EditPagosLabel_fechapago}" for="fechapago" />
+                        <p:calendar id="fechapago" pattern="MM/dd/yyyy" value="#{pagosController.selected.fechapago}" title="#{bundle.EditPagosTitle_fechapago}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPagosLabel_login}" for="login" />
+                        <p:selectOneMenu id="login" value="#{pagosController.selected.login}" required="true" requiredMessage="#{bundle.EditPagosRequiredMessage_login}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="loginItem"
+                                           itemValue="#{loginItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPagosLabel_prestamos}" for="prestamos" />
+                        <p:selectOneMenu id="prestamos" value="#{pagosController.selected.prestamos}" required="true" requiredMessage="#{bundle.EditPagosRequiredMessage_prestamos}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{prestamosController.itemsAvailableSelectOne}"
+                                           var="prestamosItem"
+                                           itemValue="#{prestamosItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pagosController.update}" value="#{bundle.Save}" update="display,:PagosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PagosEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PagosEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

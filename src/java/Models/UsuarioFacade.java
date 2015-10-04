@@ -9,6 +9,7 @@ import entity.Usuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,4 +29,25 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
     
+    public String ObtenerUsuario(String login, String pass){
+        EntityManager em = getEntityManager();
+        Query q = em.createNamedQuery("Usuario.logeo").setParameter("login", login).setParameter("pass", pass);
+        return (String.valueOf(q.getSingleResult())); 
+    }
+    
+    public Boolean existeUsuario(String login, String pass){
+       
+        try{
+            EntityManager em = getEntityManager();
+            Query q = em.createNamedQuery("Usuario.logeo").setParameter("login", login).setParameter("pass", pass);
+            if(q.getSingleResult()!=null){
+            return true;
+            }
+            return false;      
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleComprobantediarioEditDlg" widgetVar="DetalleComprobantediarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDetalleComprobantediarioTitle}">
+            <h:form id="DetalleComprobantediarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleComprobantediarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDetalleComprobantediarioLabel_numcomprobante}" for="numcomprobante" />
+                        <p:inputText id="numcomprobante" value="#{detalleComprobantediarioController.selected.numcomprobante}" title="#{bundle.EditDetalleComprobantediarioTitle_numcomprobante}" required="true" requiredMessage="#{bundle.EditDetalleComprobantediarioRequiredMessage_numcomprobante}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleComprobantediarioLabel_cargo}" for="cargo" />
+                        <p:inputText id="cargo" value="#{detalleComprobantediarioController.selected.cargo}" title="#{bundle.EditDetalleComprobantediarioTitle_cargo}" />
+                        <p:outputLabel value="#{bundle.EditDetalleComprobantediarioLabel_abono}" for="abono" />
+                        <p:inputText id="abono" value="#{detalleComprobantediarioController.selected.abono}" title="#{bundle.EditDetalleComprobantediarioTitle_abono}" />
+                        <p:outputLabel value="#{bundle.EditDetalleComprobantediarioLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{detalleComprobantediarioController.selected.descripcion}" title="#{bundle.EditDetalleComprobantediarioTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.EditDetalleComprobantediarioLabel_comprobanteDiario}" for="comprobanteDiario" />
+                        <p:selectOneMenu id="comprobanteDiario" value="#{detalleComprobantediarioController.selected.comprobanteDiario}" required="true" requiredMessage="#{bundle.EditDetalleComprobantediarioRequiredMessage_comprobanteDiario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{comprobanteDiarioController.itemsAvailableSelectOne}"
+                                           var="comprobanteDiarioItem"
+                                           itemValue="#{comprobanteDiarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDetalleComprobantediarioLabel_idcuenta}" for="idcuenta" />
+                        <p:selectOneMenu id="idcuenta" value="#{detalleComprobantediarioController.selected.idcuenta}" required="true" requiredMessage="#{bundle.EditDetalleComprobantediarioRequiredMessage_idcuenta}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{catalogoCuentasController.itemsAvailableSelectOne}"
+                                           var="idcuentaItem"
+                                           itemValue="#{idcuentaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleComprobantediarioController.update}" value="#{bundle.Save}" update="display,:DetalleComprobantediarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleComprobantediarioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleComprobantediarioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
