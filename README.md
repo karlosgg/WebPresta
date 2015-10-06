@@ -1,3 +1,3 @@
 WebPresta
-Proyecto de prestamos
+Proyecto de creditos
 Diseño II - 2015
