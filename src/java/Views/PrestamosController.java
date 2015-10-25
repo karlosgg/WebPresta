@@ -6,12 +6,17 @@ import Views.util.JsfUtil.PersistAction;
 import Models.PrestamosFacade;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -28,6 +33,27 @@ public class PrestamosController implements Serializable {
     private List<Prestamos> items = null;
     private Prestamos selected;
 
+    public void obtenerproximos() throws ParseException{
+        Date ahora = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        
+        Calendar c = Calendar.getInstance();
+        c.setTime(ahora);
+        c.add(Calendar.DATE, 7);
+        
+        String hoy =  sdf.format(ahora);
+        String fechalimite = sdf.format(c.getTime());
+        List<Prestamos> result = getFacade().ObtenerFechaLimite(fechalimite, hoy);
+        for(Prestamos p: result){
+            System.out.println(p.getLogin());
+        }
+        System.out.println(result.toString());
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        
+        contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Retorno","Ejecutada la consulta"));
+  
+    }
+    
     public PrestamosController() {
     }
 

@@ -100,6 +100,12 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PrestamosViewForm" oncomplete="PF('PrestamosViewDialog').show()" disabled="#{empty prestamosController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PrestamosEditForm" oncomplete="PF('PrestamosEditDialog').show()" disabled="#{empty prestamosController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{prestamosController.destroy}" update=":growl,datalist" disabled="#{empty prestamosController.selected}"/>
+                            <p:commandButton id="deadlineButton" icon="ui-icon-user"  
+                                             value="limites" 
+                                             actionListener="#{prestamosController.obtenerproximos()}" 
+                                             update="datalist" 
+                                             />
+
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
