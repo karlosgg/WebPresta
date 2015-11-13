@@ -19,6 +19,9 @@
             
             <p:growl id="growl1" life="3000" />
             <p:tabView id="tView" activeIndex="0" style="width: 330px;min-height: 320px;float: left">
+                
+            <!--<p:tabView id="tView" activeIndex="0" style="width: 34%;float: left">-->
+
                 <p:tab id="tabFrmCliente" title="Calculo de amortizacion">
                     <h:form>
 
@@ -62,10 +65,13 @@
             
             
             <p:panel header="" closable="false" toggleable="false" style="width: 650px;min-height: 320px;float: right;">
-                <h:panelGrid>
+            
+            <!--<p:panel header="" closable="false" toggleable="false" style="width: 63%;float: right;">-->
+
+            <h:panelGrid>
                     <h:form id="frmDetalle" >
 
-                        <p:dataTable >
+                        <p:dataTable reflow="true" rows="5" paginator="true">
                             <p:column headerText="Capital">
                                 <p:outputLabel value="#{calculadora.montoPrestar}"></p:outputLabel>
                             </p:column>

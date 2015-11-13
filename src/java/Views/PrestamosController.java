@@ -32,7 +32,7 @@ public class PrestamosController implements Serializable {
     private Models.PrestamosFacade ejbFacade;
     private List<Prestamos> items = null;
     private Prestamos selected;
-
+    
     public void obtenerproximos() throws ParseException{
         Date ahora = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -53,6 +53,32 @@ public class PrestamosController implements Serializable {
         contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Retorno","Ejecutada la consulta"));
   
     }
+    
+    public Date getHoy(){
+        Date ahora = new Date();
+    return ahora;
+    }
+    
+    public Date getLimite(){
+        Date ahora = new Date();
+       
+        Calendar c = Calendar.getInstance();
+        c.setTime(ahora);
+        c.add(Calendar.DATE, 7);
+        Date fechalimite = c.getTime();
+    return fechalimite;
+    }
+    
+    public Date getAlertaLimite(){
+        Date ahora = new Date();
+       
+        Calendar c = Calendar.getInstance();
+        c.setTime(ahora);
+        c.add(Calendar.DATE, 7);
+        Date fechalimite = c.getTime();
+    return fechalimite;
+    }
+    
     
     public PrestamosController() {
     }

@@ -8,7 +8,6 @@
 
     <ui:composition template="/template.xhtml">
 
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListPrestamosTitle}"></h:outputText>
         </ui:define>
@@ -22,74 +21,83 @@
                                  rowKey="#{item.numprestamo}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
+                                 sortMode="multiple"
+                                 
+                                 rowStyleClass="#{item.fechapago lt prestamosController.hoy ? 'red' : 'blue' 
+                                                  || item.fechapago lt prestamosController.limite 
+                                                  and item.fechapago gt prestamosController.hoy ? 'yellow' : 'blue'}"
+                                 
+                                  >
+                        <!--rowStyleClass="#{item.monto gt 600 ? 'red' : 'blue'}"-->
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+                        <f:facet  name="header">
+                                <p:commandButton id="toggler" type="button" value="Mostrar" style="float:right" icon="ui-icon-calculator" />
+                                <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                        <p:column sortBy="#{item.numprestamo}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_numprestamo}"/>
                             </f:facet>
                             <h:outputText value="#{item.numprestamo}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.monto}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_monto}"/>
                             </f:facet>
                             <h:outputText value="#{item.monto}"/>
                         </p:column>
-                        <p:column>
+                        <p:column  sortBy="#{item.cuota}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_cuota}"/>
                             </f:facet>
                             <h:outputText value="#{item.cuota}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.articulo}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_articulo}"/>
                             </f:facet>
                             <h:outputText value="#{item.articulo}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.interes}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_interes}"/>
                             </f:facet>
                             <h:outputText value="#{item.interes}"/>
                         </p:column>
-                        <p:column>
+                        <p:column  sortBy="#{item.interesmora}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_interespormora}"/>
                             </f:facet>
                             <h:outputText value="#{item.interespormora}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.saldo}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_saldo}"/>
                             </f:facet>
                             <h:outputText value="#{item.saldo}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.fechapago}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_fechapago}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechapago}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.prima}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_prima}"/>
                             </f:facet>
                             <h:outputText value="#{item.prima}"/>
                         </p:column>
-                        <p:column>
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_login}"/>
                             </f:facet>
                             <h:outputText value="#{item.login}"/>
                         </p:column>
-                        <p:column>
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPrestamosTitle_dui}"/>
                             </f:facet>
