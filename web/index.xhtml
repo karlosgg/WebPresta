@@ -15,7 +15,7 @@
     <h:body>
         <p:growl id="growl" life="3000" />
         
-        <p:layout fullPage="true">
+        <p:layout fullPage="true" id="pantalla">
             <p:layoutUnit position="north" size="65" header="SISTEMA DE CREDITOS">
                 <h:form id="menuForm">
                    <!-- <p:menubar>
@@ -38,7 +38,7 @@
 
 
             <br /><br />
-<h:form style="text-align: center">  
+<h:form style="text-align: center" >  
     <img src="resources/img/tipo-de-interes-prestamos.jpg" style="width:300px; height:200px;" />
             <br />
     <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
@@ -50,8 +50,8 @@
  
     <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
  
-    <p:dialog header="Login" widgetVar="dlg" resizable="false">
-        <h:panelGrid columns="2" cellpadding="5">
+    <p:dialog id="LoginForm" header="Login" widgetVar="dlg" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5" id="LGrid">
             <h:outputLabel for="username" value="Usuario:" />
             <p:inputText id="username" value="#{usuarioController.username}" required="true" label="username" />
  
@@ -59,12 +59,17 @@
             <p:password id="password" value="#{usuarioController.password}" required="true" label="password" />
  
             <f:facet name="footer">
-                <p:commandButton value="Ingresar" update="growl" action="#{usuarioController.LoginVerify()}"
+                <p:commandButton id="ingresar" value="Ingresar" update="growl" action="#{usuarioController.LoginVerify()}"
                                  oncomplete="handleLoginRequest(xhr, status, args)" />
                    
             </f:facet>
         </h:panelGrid>
+        <p:blockUI block="LGrid" trigger="ingresar">
+Datos<br />
+<p:graphicImage value="resources/img/l_enviando.gif"/>
+</p:blockUI>
     </p:dialog>
+    
 </h:form>
  
 <script type="text/javascript">

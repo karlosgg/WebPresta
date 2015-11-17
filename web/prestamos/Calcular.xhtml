@@ -12,92 +12,165 @@
             <h:outputText value="Nuevos Prestamos"></h:outputText>
         </ui:define>
 
-        <ui:define name="body">
+        <ui:define name="body" id="body">
             
             <h:messages infoStyle="color: blue;list-style:none;"/>
 
             
             <p:growl id="growl1" life="3000" />
-            <p:tabView id="tView" activeIndex="0" style="width: 330px;min-height: 320px;float: left">
+            <p:tabView id="tView" activeIndex="0" style="width: 310px;min-height: 320px;float: left">
                 
-            <!--<p:tabView id="tView" activeIndex="0" style="width: 34%;float: left">-->
 
                 <p:tab id="tabFrmCliente" title="Calculo de amortizacion">
-                    <h:form>
+                    <h:form id="formCalc">
 
-                        <h:panelGrid columns="2" cellpadding="5" class="ui-grid"> 
+                        <h:panelGrid columns="2" cellpadding="5" class="ui-grid" > 
                             
                             <h:outputLabel for="Varticulo" value="Valor articulo: " />
-                            <p:spinner id="Varticulo" value="#{calculadora.monto}" prefix="$" stepFactor="0.50" min="0" />
+                            <p:spinner id="Varticulo" size="12" value="#{calculadora.monto}" prefix="$" stepFactor="0.50" min="0" />
                             
                             <h:outputLabel for="Vprima" value="Prima: "  />
-                            <p:spinner id="Vprima" value="#{calculadora.prima}" prefix="$" stepFactor="0.50" min="0"/>
+                            <p:spinner id="Vprima" size="12" value="#{calculadora.prima}" prefix="$" stepFactor="0.50" min="0"/>
 
                             <h:outputLabel for="Mprestar" value="Monto a prestar: " />
-                            <p:spinner id="Mprestar" value="#{calculadora.montoPrestar}" prefix="$" stepFactor="0.50" min="0" readonly="true"/>
+                            <p:spinner id="Mprestar" size="12" value="#{calculadora.montoPrestar}" prefix="$" stepFactor="0.50" min="0" readonly="true"/>
 
                             <h:outputLabel for="Nmensualidades" value="Mensualidades: " />
-                            <p:spinner id="Nmensualidades" value="#{calculadora.mensualidad}" min="0"/>
+                            <p:spinner id="Nmensualidades" size="12" value="#{calculadora.mensualidad}" min="0"/>
                             
                             <h:outputLabel for="Vtasa" value="Tasa de interes: " />
-                            <p:spinner id="Vtasa" value="#{calculadora.tasa}" prefix="%" stepFactor="0.50" min="0"/>
+                            <p:spinner id="Vtasa" size="12" value="#{calculadora.tasa}" suffix="%" stepFactor="0.50" min="0"/>
                             
                             <h:outputLabel for="Vcargo" value="Recargo por servicio: "  />
-                            <p:spinner id="Vcargo" value="#{calculadora.recargoServicio}" prefix="$" stepFactor="0.50" min="0"/>
+                            <p:spinner id="Vcargo" size="12" value="#{calculadora.recargoServicio}" prefix="$" stepFactor="0.50" min="0"/>
                             
                             <h:outputLabel for="Vcuota" value="Cuota mensual: "  />
-                            <p:spinner id="Vcuota" value="#{calculadora.cuotaMensual}" prefix="$" stepFactor="0.50" min="0" readonly="true"/>
+                            <p:spinner id="Vcuota" size="12" value="#{calculadora.cuotaMensual}" prefix="$" stepFactor="0.50" min="0" readonly="true"/>
 
                         </h:panelGrid>
 
-                        <h:panelGrid columns="2">
-                            <!--<p:commandButton update="@frmDetalle" value="Calcular" actionListener="#{calculadora.doCalcularMensualidad()}" />-->
-                            <h:commandButton value="Calcular" actionListener="#{calculadora.doCalcularMensualidad()}" />
-                              
+                        <h:panelGrid columns="5" cellpadding="30" id="gridBotones">
+                            <p:commandButton value="Calcular" id="Calcular" onclick="rc()"  />
                             
-                            </h:panelGrid>
-
-
+                            <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show(); PF('bui').show();" title="login">
+                                <p:commandButton value="Procesar"  />             
+                            </h:outputLink>
+                            
+                            <p:remoteCommand name="rc" actionListener="#{calculadora.doCalcularMensualidad()}" 
+                                    update="formCalc :frmDetalle" />
+                            <p:blockUI block=":frmDetalle" trigger="Calcular">
+                            <p:graphicImage value="resources/img/l_enviando.gif"/>
+                            </p:blockUI>
+                            
+                        </h:panelGrid>
 
                     </h:form>
+                  
              </p:tab>
+                
             </p:tabView> 
             
             
-            <p:panel header="" closable="false" toggleable="false" style="width: 650px;min-height: 320px;float: right;">
+                    
+            <p:panel closable="false" header="PAGOS"
+                     toggleable="false" style="width: 670px;min-height: 320px;float: right;">
             
-            <!--<p:panel header="" closable="false" toggleable="false" style="width: 63%;float: right;">-->
 
             <h:panelGrid>
+                
                     <h:form id="frmDetalle" >
 
-                        <p:dataTable reflow="true" rows="5" paginator="true">
+                        <p:dataTable reflow="true"  
+                                     id="datalistprestamos" value="#{calculadora.cuotas}" var="item"
+                                 selectionMode="single" 
+                                 paginator="true"
+                                 rowKey="#{item.indice}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 sortMode="multiple"
+                                 
+                                     >
+                            <p:column headerText="#" width="20">
+                                <p:outputLabel value="#{item.indice}" ></p:outputLabel>
+                            </p:column>
                             <p:column headerText="Capital">
-                                <p:outputLabel value="#{calculadora.montoPrestar}"></p:outputLabel>
+                                <p:outputLabel value="#{item.montoActual}" >
+                                    <f:convertNumber currencySymbol="$" type="currency"  locale="en_US"/>
+                                </p:outputLabel>
                             </p:column>
-                            <p:column headerText="Pago">
-                                <p:outputLabel value="#{calculadora.cuotaMensual}"></p:outputLabel>
+                            <p:column headerText="Cuota">
+                                <p:outputLabel value="#{item.cuota}" prefix="$">
+                                    <f:convertNumber currencySymbol="$" type="currency"  locale="en_US"/>
+                                </p:outputLabel>
                             </p:column>
-                            <p:column headerText="Interes">
-                                <p:outputLabel value="#{u.loggin}"></p:outputLabel>
+                            <p:column headerText="Amortización de Interés">
+                                <p:outputLabel value="#{item.interes}">
+                                    <f:convertNumber currencySymbol="$" type="currency"  locale="en_US"/>
+                                </p:outputLabel>
                             </p:column>
-                            <p:column headerText="Servicio" >
-                                <p:outputLabel value="#{calculadora.recargoServicio}"></p:outputLabel>
+                            <p:column headerText="Cargo por Servicio" >
+                                <p:outputLabel value="#{item.servicio}">
+                                    <f:convertNumber currencySymbol="$" type="currency"  locale="en_US"/>
+                                </p:outputLabel>
                             </p:column>
-                            <p:column headerText="Capital">
-                                <p:outputLabel value="#{u.direccion}"></p:outputLabel>
+                            <p:column headerText="Amortización de Capital">
+                                <p:outputLabel value="#{item.capital}">
+                                    <f:convertNumber currencySymbol="$" type="currency"  locale="en_US"/>
+                                </p:outputLabel>
                             </p:column>
                             <p:column headerText="Saldo">
-                                <p:outputLabel value="#{u.telefono}"></p:outputLabel>
+                                <p:outputLabel value="#{item.saldo}">
+                                    <f:convertNumber currencySymbol="$" type="currency"  locale="en_US"/>
+                                </p:outputLabel>
                             </p:column> 
                             
                          
                         </p:dataTable>
-                        <!--<h:messages showDetail="true"></h:messages>-->
+                        
                     </h:form>
 
                 </h:panelGrid>
             </p:panel> 
+ 
+            <p:blockUI block="tView" widgetVar="bui"/>
+            
+            <p:dialog id="ProcPrestamo" header="PROCESAR PRESTAMO" widgetVar="dlg" resizable="false"
+                      >
+                      <p:ajax event="close" oncomplete="PF('bui').hide()" />
+                     <form style="width:600px;" id="formP">
+                     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
+       
+                     SELECCIONE EL CLIENTE: 
+                   
+                    <p:selectOneMenu id="datalist" value="#{clientesController.selected}" editable="false" 
+                                        filter="true" filterMatchMode="contains" >
+                        <f:selectItems value="#{clientesController.items}" var="c"  
+                                        itemLabel="#{c.nombres} - #{c.apellidos} - DUI: #{c.dui}" />
+                        <ajax event="selected" update="formP" /> 
+                    </p:selectOneMenu>
+                     SI EL CLIENTE NO EXISTE  
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   
+                                             value="AGREGUE UN NUEVO CLIENTE" 
+                                             update=":ClientesCreateForm"
+                                             actionListener="#{clientesController.prepareCreate}"  
+                                             oncomplete="PF('ClientesCreateDialog').show()"
+                                             
+                                             />
+                     <h:outputText value="Nombre:" />
+                     <h:outputText value="#{clientesController.selected}" />
+                     SELECCIONE EL PRESTATARIO: 
+                     <p:selectOneMenu id="selectUser" value="#{usuarioController.selected}" style="width:125px">
+                         <f:selectItems value="#{usuarioController.items}" var="p" itemLabel="#{p.nombres}" />
+          
+                    </p:selectOneMenu>
+                     
+                    <ui:include src="CreateC.xhtml"/>
+                     </h:panelGrid>
+                     </form>
+                
+            
+            </p:dialog>
+            
       </ui:define>
     </ui:composition>
 

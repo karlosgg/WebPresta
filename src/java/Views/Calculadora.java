@@ -5,19 +5,26 @@
  */
 package Views;
 
+import entity.Pagos;
+import entity.Prestamos;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
  * @author admin
  */
-@ManagedBean
+@ManagedBean(name = "calculadora")
 @ViewScoped
 public class Calculadora implements Serializable {
 
@@ -28,6 +35,27 @@ public class Calculadora implements Serializable {
     private double recargoServicio;
     private double montoPrestar;
     private double cuotaMensual;
+    private double saldo;
+    private ModeloPago pagos;
+    List<ModeloPago> cuotas;
+    
+    private double capital;
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public double getCapital() {
+        return capital;
+    }
+
+    public void setCapital(double capital) {
+        this.capital = capital;
+    }
 
     public double getMontoPrestar() {
         return montoPrestar;
@@ -91,10 +119,11 @@ public class Calculadora implements Serializable {
 
     public void doCalcularMensualidad() {
        calcularMensualidad();
-            
+       getCuotasp();
     }
 
     private void calcularMensualidad() {
+        
         double o1, o2, a1, a2, ay;
         try{
             tasa=tasa/100;
@@ -113,26 +142,75 @@ public class Calculadora implements Serializable {
             DecimalFormat formateador = new DecimalFormat("####.##",simbolos);
             ay = Double.parseDouble(formateador.format(ay));
             cuotaMensual = ay;
+            
         }
         catch(Exception e){
-        
         FacesContext contexto = FacesContext.getCurrentInstance();
-  
-        contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error en los datos", "Revise los valores ingresados"));
-            
+        contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Error en los datos", "Revise los valores ingresados"));  
         }
     }
     
     
     public void docalcularMontoPrestar(){
         calcularMontoPrestar();
+        
     }
     
     private void calcularMontoPrestar() {
-        montoPrestar = monto - prima;
-        
-       
-        
+        montoPrestar = monto - prima;   
     }
-}
+
    
+    
+    public List<ModeloPago> getCuotasp(){
+    
+    cuotas=new ArrayList<ModeloPago>();
+    saldo=monto-prima;
+    try{
+    for (int i=1; i<=mensualidad;i++){
+        if(i==1){
+            pagos=new ModeloPago();
+            capital=cuotaMensual-saldo*(tasa)-recargoServicio;
+//            saldo=montoPrestar-(cuotaMensual-montoPrestar*(tasa+1)-recargoServicio);
+            pagos.setIndice(i);
+            pagos.setMontoActual( (new BigDecimal(saldo).setScale(2, RoundingMode.HALF_UP)).doubleValue());
+            pagos.setCuota(cuotaMensual);
+            pagos.setInteres((new BigDecimal(saldo*(tasa)).setScale(2, RoundingMode.HALF_UP)).doubleValue());
+            pagos.setServicio(recargoServicio);
+            pagos.setCapital((new BigDecimal(capital).setScale(2, RoundingMode.HALF_UP)).doubleValue());
+            saldo=saldo-(cuotaMensual-saldo*(tasa)-recargoServicio);
+            pagos.setSaldo((new BigDecimal(saldo).setScale(2, RoundingMode.HALF_UP)).doubleValue());
+            
+            cuotas.add(pagos);
+            
+        }else{
+            pagos=new ModeloPago();
+            pagos.setIndice(i);
+            pagos.setMontoActual((new BigDecimal(saldo).setScale(2, RoundingMode.HALF_UP)).doubleValue());
+            pagos.setCuota(cuotaMensual);
+            pagos.setInteres((new BigDecimal(saldo*(tasa)).setScale(2, RoundingMode.HALF_UP)).doubleValue());
+            pagos.setServicio(recargoServicio);
+            capital=cuotaMensual-saldo*(tasa)-recargoServicio;
+            pagos.setCapital((new BigDecimal(capital).setScale(2, RoundingMode.HALF_UP)).doubleValue());
+            saldo=saldo-(cuotaMensual-saldo*(tasa)-recargoServicio);
+            pagos.setSaldo((new BigDecimal(saldo).setScale(2, RoundingMode.HALF_UP)).doubleValue());
+            
+            cuotas.add(pagos);
+        }   
+            System.out.println(pagos.getCapital());
+           
+        }
+    }
+    catch(Exception ex){
+            
+    }
+    tasa=tasa*100;
+    return cuotas;
+    
+    }
+//   
+    public List<ModeloPago> getCuotas() {
+        return cuotas;
+    }
+    
+}
