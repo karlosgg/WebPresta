@@ -17,13 +17,13 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_pass}" for="pass" />
                         <p:inputText id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.EditUsuarioTitle_pass}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_pass}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nit}" for="nit" />
-                        <p:inputText id="nit" value="#{usuarioController.selected.nit}" title="#{bundle.EditUsuarioTitle_nit}" />
+                        <p:inputMask id="nit" value="#{usuarioController.selected.nit}" title="#{bundle.EditUsuarioTitle_nit}" mask="9999-999999-999-9"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_apellidos}" for="apellidos" />
                         <p:inputText id="apellidos" value="#{usuarioController.selected.apellidos}" title="#{bundle.EditUsuarioTitle_apellidos}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_nombres}" for="nombres" />
                         <p:inputText id="nombres" value="#{usuarioController.selected.nombres}" title="#{bundle.EditUsuarioTitle_nombres}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{usuarioController.selected.telefono}" title="#{bundle.EditUsuarioTitle_telefono}" />
+                        <p:inputMask id="telefono" value="#{usuarioController.selected.telefono}" title="#{bundle.EditUsuarioTitle_telefono}" mask="9999-9999" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_email}" for="email" />
                         <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.EditUsuarioTitle_email}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_direccion}" for="direccion" />

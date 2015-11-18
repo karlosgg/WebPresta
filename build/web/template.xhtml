@@ -21,27 +21,21 @@
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/prestamos/Calcular.xhtml" icon="ui-icon-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="Contabilidad" outcome="/catalogoCuentas/List.xhtml" />
                             <p:menuitem value="Clientes" outcome="/clientes/List.xhtml" />
-                            <p:menuitem value="Comprobante diario" outcome="/comprobanteDiario/List.xhtml" />
-                            <p:menuitem value="Detalle diario" outcome="/detalleComprobantediario/List.xhtml" />
                             <p:menuitem value="Pagos" outcome="/pagos/List.xhtml" />
                             <p:menuitem value="Prestamos" outcome="/prestamos/List.xhtml" />
-                            <p:menuitem value="Usuario" outcome="/usuario/List.xhtml" />
+                            <p:menuitem value="Usuarios" outcome="/usuario/List.xhtml" />
+                            <p:menuitem value="Contabilidad" outcome="/catalogoCuentas/List.xhtml" />
                         </p:submenu>
-            
+                           
                     </p:menubar >
-                    <!--<p:menubar style="position: absolute;top: 2px;right: 1px;">
-                     <p:menuitem value="Salir" outcome="/index.xhtml" icon="ui-icon-eject" />
-                    </p:menubar>-->
+
                     <div style="position: absolute;top:2px;right:10px;">
-                    <h:outputText value="User -> #{sessionControl.usuario}"/>
+                        <h:outputText value="Usuario: #{usuarioController.nombreApellidoUsuario}" />
                         <h:form>
-                            <p:commandButton  class="ui-button" value="Salir"
+                            <p:commandButton  class="ui-button" value="Salir" icon="ui-icon-circle-close"
                                 actionListener="#{sessionControl.cerrarSession()}" 
                                              oncomplete="logout(xhr, status, args)" />
-         
-   
                         </h:form>
                     </div>
                 </h:form>

@@ -43,7 +43,7 @@ public class Clientes implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 9)
+    @Size(min = 1, max = 10)
     @Column(name = "dui")
     private String dui;
     @Size(max = 50)
@@ -52,10 +52,10 @@ public class Clientes implements Serializable {
     @Size(max = 50)
     @Column(name = "apellidos")
     private String apellidos;
-    @Size(max = 14)
+    @Size(max = 18)
     @Column(name = "nit")
     private String nit;
-    @Size(max = 8)
+    @Size(max = 9)
     @Column(name = "telefono")
     private String telefono;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation

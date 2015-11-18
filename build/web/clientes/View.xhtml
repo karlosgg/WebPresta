@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ClientesViewDlg" widgetVar="ClientesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewClientesTitle}">
+        <p:dialog id="ClientesViewDlg" widgetVar="ClientesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="INFORMACIÓN DETALLADA DE CLIENTE">
             <h:form id="ClientesViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clientesController.selected != null}">

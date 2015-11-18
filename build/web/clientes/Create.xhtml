@@ -13,15 +13,16 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clientesController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateClientesLabel_dui}" for="dui" />
-                        <p:inputText id="dui" value="#{clientesController.selected.dui}" title="#{bundle.CreateClientesTitle_dui}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_dui}"/>
+                        <p:inputMask id="dui" value="#{clientesController.selected.dui}" title="#{bundle.CreateClientesTitle_dui}" 
+                                     required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_dui}" mask="99999999-9"/>
                         <p:outputLabel value="#{bundle.CreateClientesLabel_nombres}" for="nombres" />
                         <p:inputText id="nombres" value="#{clientesController.selected.nombres}" title="#{bundle.CreateClientesTitle_nombres}" />
                         <p:outputLabel value="#{bundle.CreateClientesLabel_apellidos}" for="apellidos" />
                         <p:inputText id="apellidos" value="#{clientesController.selected.apellidos}" title="#{bundle.CreateClientesTitle_apellidos}" />
                         <p:outputLabel value="#{bundle.CreateClientesLabel_nit}" for="nit" />
-                        <p:inputText id="nit" value="#{clientesController.selected.nit}" title="#{bundle.CreateClientesTitle_nit}" />
+                        <p:inputMask id="nit" value="#{clientesController.selected.nit}" title="#{bundle.CreateClientesTitle_nit}" mask="9999-999999-999-9"/>
                         <p:outputLabel value="#{bundle.CreateClientesLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{clientesController.selected.telefono}" title="#{bundle.CreateClientesTitle_telefono}" />
+                        <p:inputMask id="telefono" value="#{clientesController.selected.telefono}" title="#{bundle.CreateClientesTitle_telefono}" mask="9999-9999"/>
                         <p:outputLabel value="#{bundle.CreateClientesLabel_email}" for="email" />
                         <p:inputText id="email" value="#{clientesController.selected.email}" title="#{bundle.CreateClientesTitle_email}" />
                         <p:outputLabel value="#{bundle.CreateClientesLabel_profesion}" for="profesion" />

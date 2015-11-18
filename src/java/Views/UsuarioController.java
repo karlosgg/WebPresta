@@ -52,6 +52,11 @@ private HttpServletRequest httpServletRequest;
         this.password = password;
     }
     /// MIS METODOS
+    public String getNombreApellidoUsuario(){
+        String s=getFacade().ObtenerUsuarioByLogin(username).getNombres() +
+                " " + getFacade().ObtenerUsuarioByLogin(username).getApellidos() ;
+        return s;
+    }
     
     public void LoginFunional(){
         String result = getFacade().ObtenerUsuario(username, password);

@@ -49,19 +49,24 @@
 
                         </h:panelGrid>
 
-                        <h:panelGrid columns="5" cellpadding="30" id="gridBotones">
-                            <p:commandButton value="Calcular" id="Calcular" onclick="rc()"  />
-                            
-                            <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show(); PF('bui').show();" title="login">
-                                <p:commandButton value="Procesar"  />             
-                            </h:outputLink>
-                            
+                        <h:panelGrid columns="6" cellpadding="30" id="gridBotones">
+                            <p:commandButton value="Calcular" id="Calcular" onclick="rc()" 
+                                             icon="ui-icon-calculator" />
+                            <p:commandButton id="procesarButton" icon="ui-icon-check"   
+                                             value="Procesar" 
+                                             update="Proce"
+                                             actionListener="#{prestamosController.prepareCreate}"  
+                                             oncomplete="PF('ProcesarDialog').show()"
+                                             
+                            />
                             <p:remoteCommand name="rc" actionListener="#{calculadora.doCalcularMensualidad()}" 
                                     update="formCalc :frmDetalle" />
+                            
                             <p:blockUI block=":frmDetalle" trigger="Calcular">
                             <p:graphicImage value="resources/img/l_enviando.gif"/>
                             </p:blockUI>
-                            
+                             
+                             <ui:include src="Solicitar.xhtml" />
                         </h:panelGrid>
 
                     </h:form>
@@ -131,45 +136,7 @@
 
                 </h:panelGrid>
             </p:panel> 
- 
-            <p:blockUI block="tView" widgetVar="bui"/>
-            
-            <p:dialog id="ProcPrestamo" header="PROCESAR PRESTAMO" widgetVar="dlg" resizable="false"
-                      >
-                      <p:ajax event="close" oncomplete="PF('bui').hide()" />
-                     <form style="width:600px;" id="formP">
-                     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
-       
-                     SELECCIONE EL CLIENTE: 
-                   
-                    <p:selectOneMenu id="datalist" value="#{clientesController.selected}" editable="false" 
-                                        filter="true" filterMatchMode="contains" >
-                        <f:selectItems value="#{clientesController.items}" var="c"  
-                                        itemLabel="#{c.nombres} - #{c.apellidos} - DUI: #{c.dui}" />
-                        <ajax event="selected" update="formP" /> 
-                    </p:selectOneMenu>
-                     SI EL CLIENTE NO EXISTE  
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   
-                                             value="AGREGUE UN NUEVO CLIENTE" 
-                                             update=":ClientesCreateForm"
-                                             actionListener="#{clientesController.prepareCreate}"  
-                                             oncomplete="PF('ClientesCreateDialog').show()"
-                                             
-                                             />
-                     <h:outputText value="Nombre:" />
-                     <h:outputText value="#{clientesController.selected}" />
-                     SELECCIONE EL PRESTATARIO: 
-                     <p:selectOneMenu id="selectUser" value="#{usuarioController.selected}" style="width:125px">
-                         <f:selectItems value="#{usuarioController.items}" var="p" itemLabel="#{p.nombres}" />
-          
-                    </p:selectOneMenu>
-                     
-                    <ui:include src="CreateC.xhtml"/>
-                     </h:panelGrid>
-                     </form>
-                
-            
-            </p:dialog>
+         
             
       </ui:define>
     </ui:composition>

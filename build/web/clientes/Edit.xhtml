@@ -8,20 +8,21 @@
 
     <ui:composition>
 
-        <p:dialog id="ClientesEditDlg" widgetVar="ClientesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditClientesTitle}">
+        <p:dialog id="ClientesEditDlg" widgetVar="ClientesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="EDITAR CLIENTE">
             <h:form id="ClientesEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clientesController.selected != null}">
                         <p:outputLabel value="#{bundle.EditClientesLabel_dui}" for="dui" />
-                        <p:inputText id="dui" value="#{clientesController.selected.dui}" title="#{bundle.EditClientesTitle_dui}" required="true" requiredMessage="#{bundle.EditClientesRequiredMessage_dui}"/>
+                        <p:inputMask id="dui" value="#{clientesController.selected.dui}" title="#{bundle.EditClientesTitle_dui}" 
+                                     required="true" requiredMessage="#{bundle.EditClientesRequiredMessage_dui}" mask="99999999-9"/>
                         <p:outputLabel value="#{bundle.EditClientesLabel_nombres}" for="nombres" />
                         <p:inputText id="nombres" value="#{clientesController.selected.nombres}" title="#{bundle.EditClientesTitle_nombres}" />
                         <p:outputLabel value="#{bundle.EditClientesLabel_apellidos}" for="apellidos" />
                         <p:inputText id="apellidos" value="#{clientesController.selected.apellidos}" title="#{bundle.EditClientesTitle_apellidos}" />
                         <p:outputLabel value="#{bundle.EditClientesLabel_nit}" for="nit" />
-                        <p:inputText id="nit" value="#{clientesController.selected.nit}" title="#{bundle.EditClientesTitle_nit}" />
+                        <p:inputMask id="nit" value="#{clientesController.selected.nit}" title="#{bundle.EditClientesTitle_nit}" mask="9999-999999-999-9"/>
                         <p:outputLabel value="#{bundle.EditClientesLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{clientesController.selected.telefono}" title="#{bundle.EditClientesTitle_telefono}" />
+                        <p:inputMask id="telefono" value="#{clientesController.selected.telefono}" title="#{bundle.EditClientesTitle_telefono}" mask="9999-9999"/>
                         <p:outputLabel value="#{bundle.EditClientesLabel_email}" for="email" />
                         <p:inputText id="email" value="#{clientesController.selected.email}" title="#{bundle.EditClientesTitle_email}" />
                         <p:outputLabel value="#{bundle.EditClientesLabel_profesion}" for="profesion" />

@@ -34,6 +34,12 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         Query q = em.createNamedQuery("Usuario.logeo").setParameter("login", login).setParameter("pass", pass);
         return (String.valueOf(q.getSingleResult())); 
     }
+    public Usuario ObtenerUsuarioByLogin(String login){
+        EntityManager em = getEntityManager();
+        Query q = em.createNamedQuery("Usuario.findByLogin").setParameter("login", login);
+        Usuario user = (Usuario) q.getSingleResult();
+        return user; 
+    }
     
     public Boolean existeUsuario(String login, String pass){
        

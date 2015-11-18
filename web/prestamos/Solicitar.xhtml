@@ -9,8 +9,55 @@
     <ui:composition>
 
         <p:dialog id="ProcesarDlg" widgetVar="ProcesarDialog" modal="true" resizable="false" appendTo="@(body)" header="NUEVO CRÉDITO">
-            <h:form id="Proce">
-                
+            <h:form id="Proce" >
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
+       
+                    CLIENTE: 
+                    <p:selectOneMenu id="datalist" value="#{clientesController.selected}" editable="false" 
+                                        filter="true" filterMatchMode="contains" >
+                        <p:ajax listener="#{clientesController.selected}" />
+                        <f:selectItems value="#{clientesController.items}" var="c"  
+                                        itemLabel="#{c.nombres} #{c.apellidos} - #{c.dui}" />
+                    </p:selectOneMenu>
+                    PRESTATARIO: <p:inputText value="#{usuarioController.nombreApellidoUsuario}" readonly="true"
+                                              size="40"/>
+                    
+                    ARTICULO:<p:inputText id="ArtAComprar" size="40"/> 
+                </h:panelGrid> 
+                <h:panelGrid columns="2" cellpadding="5" columnClasses="label, value">
+                    <h:panelGrid columns="2" cellpadding="5" columnClasses="label, value">
+                    PRECIO:<p:inputText value="$#{calculadora.monto}" readonly="true" size="8"/>
+                    PRIMA:<p:inputText value="$#{calculadora.prima}" readonly="true" size="8"/> 
+                    </h:panelGrid> 
+                    <h:panelGrid columns="2" cellpadding="5" columnClasses="label, value">
+                    MONTO A PRESTAR: <p:inputText value="$#{calculadora.montoPrestar}" readonly="true" size="8"/>
+                    NUMERO DE CUOTAS: <p:inputText value="#{calculadora.mensualidad}" readonly="true" size="8"/>
+                    CUOTAS DE: <p:inputText value="$#{calculadora.cuotaMensual}" readonly="true" size="8"/>
+                    </h:panelGrid> 
+                    FECHA DE PRIMER PAGO: <p:calendar id="buttonCalenda" value="#{prestamosController.limite}"
+                                                      pattern="dd-MM-yyyy" showOn="button" />
+                 </h:panelGrid>   
+                <h:panelGrid columns="5" cellpadding="5" >
+                     <p:commandButton value="Registrar el Crédito" id="RealizarPeticion" onclick="alert('¿Seguro que quiere continuar?')" 
+                                             icon="ui-icon-check" />
+                    <!-- <p:selectOneMenu id="selectUser" value="#{usuarioController.selected}" style="width:125px">
+                         <f:selectItems value="#{usuarioController.items}" var="p" itemLabel="#{p.nombres}" />
+          
+                    </p:selectOneMenu>
+                     SI EL CLIENTE NO EXISTE  
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   
+                                             value="AGREGUE UN NUEVO CLIENTE" 
+                                             update="ClientesCreateForm"
+                                             actionListener="#{clientesController.prepareCreate()}"  
+                                             oncomplete="PF('ClientesCreateDialog').show()"
+                                             
+                                             />
+                     <h:outputText value="Nombre:" />
+                     <h:outputText value="#{c.nombres}" id="userselected"/>-->
+                    
+                     
+                    <ui:include src="CreateC.xhtml"/>
+                     </h:panelGrid>
             </h:form>
         </p:dialog>
 

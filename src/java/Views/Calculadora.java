@@ -28,7 +28,7 @@ import javax.faces.event.ActionEvent;
 @ViewScoped
 public class Calculadora implements Serializable {
 
-    private double monto;
+    private double monto=0.0;
     private double prima;
     private int mensualidad;
     private double tasa;

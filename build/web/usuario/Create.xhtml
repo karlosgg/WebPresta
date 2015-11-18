@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
+        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="REGISTRAR NUEVO USUARIO">
             <h:form id="UsuarioCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
@@ -17,13 +17,13 @@
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_pass}" for="pass" />
                         <p:inputText id="pass" value="#{usuarioController.selected.pass}" title="#{bundle.CreateUsuarioTitle_pass}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_pass}"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_nit}" for="nit" />
-                        <p:inputText id="nit" value="#{usuarioController.selected.nit}" title="#{bundle.CreateUsuarioTitle_nit}" />
+                        <p:inputMask id="nit" value="#{usuarioController.selected.nit}" title="#{bundle.CreateUsuarioTitle_nit}" mask="9999-999999-999-9"/>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_apellidos}" for="apellidos" />
                         <p:inputText id="apellidos" value="#{usuarioController.selected.apellidos}" title="#{bundle.CreateUsuarioTitle_apellidos}" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombres}" for="nombres" />
                         <p:inputText id="nombres" value="#{usuarioController.selected.nombres}" title="#{bundle.CreateUsuarioTitle_nombres}" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{usuarioController.selected.telefono}" title="#{bundle.CreateUsuarioTitle_telefono}" />
+                        <p:inputMask id="telefono" value="#{usuarioController.selected.telefono}" title="#{bundle.CreateUsuarioTitle_telefono}" mask="9999-9999" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_email}" for="email" />
                         <p:inputText id="email" value="#{usuarioController.selected.email}" title="#{bundle.CreateUsuarioTitle_email}" />
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_direccion}" for="direccion" />
